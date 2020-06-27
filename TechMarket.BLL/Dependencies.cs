@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using TechMarket.BLL.Interfaces;
 using TechMarket.BLL.Services;
 using TechMarket.DAL.EF;
 using TechMarket.DAL.Interfaces;
@@ -15,12 +13,12 @@ namespace TechMarket.BLL
         public static void InjectDependencies(IServiceCollection services)
         {
             services.AddDbContext<TechMarketDbContext>(options => 
-            options.UseSqlServer("Server=(local)\\SQLEXPRESS;Database=TechMarketDb;Trusted_Connection=True;", x => x.MigrationsAssembly("TechMarket.DAL")));
+            options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TechMarketDb;Trusted_Connection=True;MultipleActiveResultSets=true", x => x.MigrationsAssembly("TechMarket.DAL")));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-            //services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IProductService, ProductService>();
         }
     }
 }

@@ -47,5 +47,9 @@ namespace TechMarket.DAL.Repositories
         {
             context.Set<T>().RemoveRange(entities);
         }
+        public void Update(T entity)
+        {
+            context.Entry(entity).State = EntityState.Modified;
+        }
     }
 }
