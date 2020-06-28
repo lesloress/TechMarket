@@ -1,26 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using TechMarket.BLL.Interfaces;
 using TechMarket.Models;
 
 namespace TechMarket.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
+        private readonly ICategoryService _categoryService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(/*ILogger<HomeController> logger*/ICategoryService categoryService)
         {
-            _logger = logger;
+            _categoryService = categoryService;
+            //_logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            CatalogPageVM model = new CatalogPageVM(await _categoryService.GetAllCategories());
+            //model.AvailableCategories = _mapper.Map<IList<SelectListItem>>(await _categoryService.GetAllCategories());
+            return View(model);
         }
 
         public IActionResult Privacy()

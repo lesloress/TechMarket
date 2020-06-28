@@ -1,0 +1,19 @@
+﻿@model IEnumerable<ProductDTO>
+
+    <div class="container-fluid mt-2">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-11 col-sm-6 col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="@("~/product_images/" + item.ImagePath)" asp-append-version="true" class="card-img-top img-fluid" height="225" />
+                        <div class="card-body">
+                            @Html.ActionLink(item.Name, "ProductDetails", new { id = item.Id})
+                            <p class="card-text">@item.Description</p>
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>

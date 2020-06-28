@@ -8,6 +8,7 @@ namespace TechMarket.BLL.Interfaces
     {
         Task<IEnumerable<ProductDTO>> GetAllProducts();
         Task<ProductDTO> GetProductById(int id);
+        Task<IEnumerable<ProductDTO>> GetProductsByCategoryId(int categoryId);
         Task<ProductDTO> CreateProduct(ProductDTO productDto);
         Task UpdateProduct(ProductDTO productDto);
         Task DeleteProduct(ProductDTO product);

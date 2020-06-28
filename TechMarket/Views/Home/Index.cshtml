@@ -1,8 +1,36 @@
-﻿@{
+﻿@model CatalogPageVM
+@{
     ViewData["Title"] = "Home Page";
 }
+@section SidePanel {
+    @foreach (var item in Model.AvailableCategories)
+    {
+        <div class="checkbox">
+            <label>
+            <input type="checkbox"
+                   name="SelectedCategoriesIds"
+                   value="@item.Value"
+                   @if (Model.SelectedCategoriesIds.Contains(item.Value)) { <text> checked </text>  } /> @item.Text
+            </label>
+        </div>
+    }
+}
+<form action="/Product/ProductList" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#catalog" method="post">
+    <div class="form-row align-items-center">
+        <div class="col-11">
+            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        </div>
+        <div class="col-1">
+            <button type="submit" class="btn  btn-outline-primary"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+</form>
+<div id="catalog">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#catalog').load('@Url.Action("ProductListPartial", "Product")');
+    });
+</script>

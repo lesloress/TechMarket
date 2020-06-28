@@ -23,9 +23,9 @@ namespace TechMarket.DAL.Repositories
         {
             return await context.Set<T>().ToListAsync();
         }
-        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
         {
-            return context.Set<T>().Where(predicate);
+            return await context.Set<T>().Where(predicate).ToListAsync();
         }
         public Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate)
         {
