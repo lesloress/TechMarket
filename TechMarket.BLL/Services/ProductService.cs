@@ -41,11 +41,35 @@ namespace TechMarket.BLL.Services
             return _mapper.Map<IEnumerable<ProductDTO>>(await _unitOfWork.Products.GetAllAsync());
         }
 
+        public async Task<IEnumerable<ProductDTO>> FilterProducts(IList<int> selectedCategoriesIds)
+        {
+            return _mapper.Map<IEnumerable<ProductDTO>>(
+                await _unitOfWork.Products.Find(p => selectedCategoriesIds.Contains(p.CategoryId)));
+        }
+
+        public async Task<IEnumerable<ProductDTO>> FindProductsByNameAndDescription(string text)
+        {
+            return _mapper.Map<IEnumerable<ProductDTO>>(
+                await _unitOfWork.Products.Find(p => p.Name.Contains(text) || p.Description.Contains(text)));
+        }
+
         public async Task DeleteProduct(ProductDTO productDto)
         {
             Product product = _mapper.Map<Product>(productDto);
             _unitOfWork.Products.Remove(product);
             await _unitOfWork.CommitAsync();
+        }
+
+        public async Task<bool> DeleteProductById(int id)
+        {
+            Product product = await _unitOfWork.Products.GetProductWithoutTracking(id);
+            if (product != null)
+            {
+                _unitOfWork.Products.Remove(product);
+                await _unitOfWork.CommitAsync();
+                return true;
+            }
+            return false;
         }
 
         public async Task UpdateProduct(ProductDTO productDto)

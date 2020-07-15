@@ -14,17 +14,36 @@ namespace TechMarket.Controllers
     {
         //private readonly ILogger<HomeController> _logger;
         private readonly ICategoryService _categoryService;
+        private readonly IProductService _productService;
 
-        public HomeController(/*ILogger<HomeController> logger*/ICategoryService categoryService)
+        public HomeController(/*ILogger<HomeController> logger*/ICategoryService categoryService,
+            IProductService productService)
         {
             _categoryService = categoryService;
+            _productService = productService;
             //_logger = logger;
         }
 
         public async Task<IActionResult> Index()
         {
-            CatalogPageVM model = new CatalogPageVM(await _categoryService.GetAllCategories());
-            //model.AvailableCategories = _mapper.Map<IList<SelectListItem>>(await _categoryService.GetAllCategories());
+            CatalogPageVM model = new CatalogPageVM(await _categoryService.GetAllCategories(), 
+                await _productService.GetAllProducts());
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(string searchText)
+        {
+            CatalogPageVM model;
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                model = new CatalogPageVM(await _categoryService.GetAllCategories(),
+                    await _productService.FindProductsByNameAndDescription(searchText));
+            } else
+            {
+                model = new CatalogPageVM(await _categoryService.GetAllCategories(),
+                    await _productService.GetAllProducts());
+            }
             return View(model);
         }
 

@@ -12,6 +12,11 @@ namespace TechMarket.BLL.Infrastructure
             CreateMap<ProductDTO, Product>();
             CreateMap<Category, CategoryDTO>();
             CreateMap<CategoryDTO, Category>();
+            CreateMap<ShoppingCartItem, ShoppingCartItemDTO>()
+                .ForMember("Name", opt => opt.MapFrom(p => p.Product.Name))
+                .ForMember("Price", opt => opt.MapFrom(p => p.Product.Price))
+                .ForMember("ImagePath", opt => opt.MapFrom(p => p.Product.ImagePath));
+            CreateMap<ShoppingCartItemDTO, ShoppingCartItem>();
         }
     }
 }

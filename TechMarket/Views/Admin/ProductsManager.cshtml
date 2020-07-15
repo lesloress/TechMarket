@@ -1,0 +1,68 @@
+﻿@model IEnumerable<TechMarket.BLL.DTO.ProductDTO>
+
+@{
+    ViewData["Title"] = "Products manager";
+}
+
+@section SidePanel {
+    @{await Html.RenderPartialAsync("_AdminSidePanel"); }
+}
+
+@Html.ActionLink("Create product", "CreateProduct")
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Desription</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <img class="adminImg" src="@("~/product_images/" + item.ImagePath)" asp-append-version="true" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td class="text-center">
+                <form asp-action="DeleteProduct" method="post">
+                    <a asp-action="EditProduct" class="btn btn-primary btn-sm"
+                       asp-route-id="@item.Id">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                    </a>
+                    @*<a asp-action="ProductDetails" asp-controller="Product" class="btn btn-sm"
+           asp-route-id="@item.Id">
+            Details
+        </a>*@
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "EditProduct", new { id = item.Id }) |
+                @Html.ActionLink("Details", "ProductDetails", "Product", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "DeleteProduct", new { id = item.Id })
+            </td>*@
+        </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script src="~/js/admin_panel.js" asp-append-version="true"></script>
+}
+
+

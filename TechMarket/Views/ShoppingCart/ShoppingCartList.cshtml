@@ -1,0 +1,49 @@
+﻿@model ShoppingCartVM
+@{
+    ViewData["Title"] = "Shopping cart";
+}
+
+    <div class="container-fluid">
+        <h1>Shopping Cart</h1>
+        @foreach (var item in Model.ShoppingCartItems)
+        {
+            <div class="row border-bottom border-top" id="@item.Id">
+                <div class="col-6 col-sm-5 col-md-3">
+                    <img src="@("~/product_images/" + item.ImagePath)" asp-append-version="true" class="img-fluid previewImg" />
+                </div>
+                <div class="col-5 col-sm-6 col-md-8">
+                    <div class="row">
+                        @*<div class="col-11 justify-content-md-center">
+                            <h3>@item.Name</h3>
+                        </div>
+                        <div class="col-1">
+                            <button class="btn bg-white"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>*@
+                        <h3>@item.Name</h3>
+                    </div>
+                    <div class="row justify-content-start">
+                        <div class="col">
+                            <p>@item.Quantity</p>
+                        </div>
+                        <div class="col">
+                            <p>@item.FullPrice</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <form asp-action="DeleteFromCart" asp-controller="ShoppingCart"  asp-antiforgery="true">
+                        <input name="cartItemId" type="hidden" value="@item.Id"/>
+                        <button type="submit" class="btn bg-white"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+            </div>
+        }
+        <div class="row justify-content-end">
+            <div class="col-auto">
+                <p>Total price: @Model.TotalPrice</p>
+            </div>
+        </div>
+    </div>
+
+
+

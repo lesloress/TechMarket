@@ -34,6 +34,11 @@ namespace TechMarket.DAL.Repositories
                 .ToListAsync();
         }
 
+        public async Task<Product> GetProductWithoutTracking(int id)
+        {
+            return await TechMarketDbContext.Products.SingleOrDefaultAsync(p => p.Id == id);
+        }
+
         private TechMarketDbContext TechMarketDbContext
         {
             get { return context as TechMarketDbContext; }

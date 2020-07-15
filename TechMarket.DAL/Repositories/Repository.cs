@@ -15,9 +15,9 @@ namespace TechMarket.DAL.Repositories
         {
             this.context = context;
         }
-        public ValueTask<T> GetByIdAsync(int id)
+        public async ValueTask<T> GetByIdAsync(int id)
         {
-            return context.Set<T>().FindAsync(id);
+            return await context.Set<T>().FindAsync(id);
         }
         public async Task<IEnumerable<T>> GetAllAsync()
         {

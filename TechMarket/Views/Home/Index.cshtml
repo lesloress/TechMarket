@@ -2,35 +2,56 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-@section SidePanel {
-    @foreach (var item in Model.AvailableCategories)
-    {
-        <div class="checkbox">
-            <label>
-            <input type="checkbox"
-                   name="SelectedCategoriesIds"
-                   value="@item.Value"
-                   @if (Model.SelectedCategoriesIds.Contains(item.Value)) { <text> checked </text>  } /> @item.Text
-            </label>
+
+@*@section ShoppingCart {
+        <div id="shoppingCart">
+            @Html.ActionLink("cart", "ShoppingCartList", "ShoppingCart")
         </div>
-    }
+    }*@
+
+@section SidePanel {
+    <form action="/Product/ProductListPartial" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#catalog" method="post">
+        <div class="border-bottom">
+            <h6>Choose categories</h6>
+            @foreach (var item in Model.AvailableCategories)
+            {
+                <div class="checkbox">
+                    <label>
+                        @item.Text
+                        <input type="checkbox"
+                               name="SelectedCategoriesIds"
+                               value="@item.Value"
+                               @if (Model.SelectedCategoriesIds.Contains(item.Value)) { <text> checked </text> } />
+                    </label>
+                </div>
+            }
+        </div>
+        <div>
+            <h6>Sorting</h6>
+            <select name="CurrentSortState"
+                    class="form-control"
+                    asp-items="Html.GetEnumSelectList<SortState>()">
+            </select>
+            <button type="submit" class="btn btn-primary mt-2">Filter</button>
+        </div>
+    </form>
 }
-<form action="/Product/ProductList" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#catalog" method="post">
+<form method="post">
     <div class="form-row align-items-center">
         <div class="col-11">
-            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+            <input name="SearchText" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
         </div>
         <div class="col-1">
-            <button type="submit" class="btn  btn-outline-primary"><i class="fas fa-search"></i></button>
+            <button type="submit" class="btn  btn-outline-primary"><i class="fa fa-search"></i></button>
         </div>
     </div>
 </form>
 <div id="catalog">
-
+    @{await Html.RenderPartialAsync("_ProductList", Model.Products); }
 </div>
-
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#catalog').load('@Url.Action("ProductListPartial", "Product")');
+        //$('#catalog').load('@Url.Action("ProductListPartial", "Product")');
+        //$('#shoppingCart').load('@Url.Action("CartListPartial", "Cart")');
     });
 </script>

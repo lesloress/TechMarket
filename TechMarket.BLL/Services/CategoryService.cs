@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TechMarket.BLL.DTO;
 using TechMarket.BLL.Interfaces;

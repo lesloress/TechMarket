@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using TechMarket.DAL.EF;
+using TechMarket.DAL.Entities;
 using TechMarket.DAL.Interfaces;
 
 namespace TechMarket.DAL.Repositories
@@ -7,15 +8,18 @@ namespace TechMarket.DAL.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly TechMarketDbContext _context;
-        private ProductRepository _productRepository;
-        private CategoryRepository _categoryRepository;
+        private IProductRepository _productRepository;
+        private ICategoryRepository _categoryRepository;
+        private IShoppingCartRepository _shoppingCartRepository;
 
         public UnitOfWork(TechMarketDbContext context)
         {
-            this._context = context;
+            _context = context;
         }
         public IProductRepository Products => _productRepository = _productRepository ?? new ProductRepository(_context);
         public ICategoryRepository Categories => _categoryRepository = _categoryRepository ?? new CategoryRepository(_context);
+        public IShoppingCartRepository ShoppingCartRepository => 
+            _shoppingCartRepository = _shoppingCartRepository ?? new ShoppingCartRepository(_context);
 
         public async Task<int> CommitAsync()
         {

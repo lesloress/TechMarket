@@ -9,5 +9,6 @@ namespace TechMarket.DAL.Interfaces
         Task<Product> GetWithCategoryByIdAsync(int id);
         Task<IEnumerable<Product>> GetAllWithCategoryAsync();
         Task<IEnumerable<Product>> GetAllWithCategoryByCategoryIdAsync(int categoryId);
+        Task<Product> GetProductWithoutTracking(int id);
     }
 }

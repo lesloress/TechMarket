@@ -7,6 +7,7 @@ namespace TechMarket.DAL.Interfaces
     {
         IProductRepository Products { get; }
         ICategoryRepository Categories { get; }
+        IShoppingCartRepository ShoppingCartRepository { get; }
         Task<int> CommitAsync();
     }
 }
