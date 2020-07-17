@@ -34,5 +34,24 @@ namespace TechMarket.BLL.Services
             await _unitOfWork.CommitAsync();
             return categoryDto;
         }
+
+        public async Task DeleteCategory(CategoryDTO categoryDTO)
+        {
+            Category category = _mapper.Map<Category>(categoryDTO);
+            _unitOfWork.Categories.Remove(category);
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task<bool> DeleteCategoryById(int id)
+        {
+            Category category = await _unitOfWork.Categories.GetCategoryWithoutTracking(id);
+            if (category != null)
+            {
+                _unitOfWork.Categories.Remove(category);
+                await _unitOfWork.CommitAsync();
+                return true;
+            }
+            return false;
+        }
     }
 }

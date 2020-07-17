@@ -12,11 +12,17 @@ namespace TechMarket.DAL.Repositories
 
         public async Task<Category> GetWithProductsByIdAsync(int id)
         {
-            return await techMarketDbContext.Categories
+            return await TechMarketDbContext.Categories
                            .Include(c => c.Products)
                            .SingleOrDefaultAsync(m => m.Id == id);
         }
-        private TechMarketDbContext techMarketDbContext
+
+        public async Task<Category> GetCategoryWithoutTracking(int id)
+        {
+            return await TechMarketDbContext.Categories.SingleOrDefaultAsync(p => p.Id == id);
+        }
+
+        private TechMarketDbContext TechMarketDbContext
         {
             get { return context as TechMarketDbContext; }
         }

@@ -9,6 +9,8 @@ namespace TechMarket.BLL.Interfaces
         Task<CategoryDTO> GetCategoryById(int id);
         Task<IEnumerable<CategoryDTO>> GetAllCategories();
         Task<CategoryDTO> CreateCategory(CategoryDTO categoryDto);
+        Task DeleteCategory(CategoryDTO categoryDTO);
+        Task<bool> DeleteCategoryById(int id);
 
     }
 }

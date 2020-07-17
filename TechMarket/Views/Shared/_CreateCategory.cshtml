@@ -1,0 +1,13 @@
+﻿@model TechMarket.BLL.DTO.CategoryDTO
+
+
+<form>
+    <h4>Create category</h4>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input id="name" asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+</form>
+

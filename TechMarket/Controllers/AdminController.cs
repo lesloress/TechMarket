@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TechMarket.BLL.DTO;
 using TechMarket.BLL.Interfaces;
 using TechMarket.Models;
 
@@ -39,6 +40,36 @@ namespace TechMarket.Controllers
         //public async Task<IActionResult> ProductListPartial() => 
         //    PartialView("_AdminProductList", await _productService.GetAllProducts());
 
+        [HttpGet]
+        public ActionResult CreateCategory()
+        {
+            return PartialView("_CreateCategory");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateCategory(CategoryDTO category)
+        {
+            if (ModelState.IsValid)
+            {
+                category.Id = 0;
+                await _categoryService.CreateCategory(category);
+                //ViewBag.ModelName = "category";
+                //return PartialView("Success");
+                TempData["message"] = "New category was successfully created";
+                return RedirectToAction("CategoryList");
+            }
+            return PartialView("_CreateCategory", category);
+        }
+
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            if (await _categoryService.DeleteCategoryById(id))
+                TempData["message"] = "Category was successfully deleted";
+            else
+                TempData["message"] = "Error";
+            return RedirectToAction("CategoryList");
+        }
 
         [HttpGet]
         public async Task<IActionResult> EditProduct(int id)
@@ -92,17 +123,8 @@ namespace TechMarket.Controllers
         {
             if (ModelState.IsValid)
             {
-                //string wwwRootPath = _webHostEnvironment.WebRootPath;
-                //string fileName = Path.GetFileNameWithoutExtension(model.ImageFile.FileName);
-                //string fileExt = Path.GetExtension(model.ImageFile.FileName);
                 string fileName = model.Product.ImagePath = CreateFileName(model.ImageFile);
                 await SaveImageToFolder(ProductImagesFolder, fileName, model.ImageFile);
-                //string path = Path.Combine(wwwRootPath + "/product_images/", fileName);
-
-                //using(var fileStream = new FileStream(path, FileMode.Create))
-                //{
-                //    await model.ImageFile.CopyToAsync(fileStream);
-                //}
 
                 await _productService.CreateProduct(model.Product);
                 return RedirectToAction("ProductList");
@@ -115,7 +137,6 @@ namespace TechMarket.Controllers
 
         private string CreateFileName(IFormFile file)
         {
-            //string wwwRootPath = _webHostEnvironment.WebRootPath;
             string fileName = Path.GetFileNameWithoutExtension(file.FileName);
             string fileExt = Path.GetExtension(file.FileName);
             return fileName + DateTime.Now.ToString("yymmssfff") + fileExt;
