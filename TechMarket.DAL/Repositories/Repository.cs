@@ -17,11 +17,13 @@ namespace TechMarket.DAL.Repositories
         }
         public async ValueTask<T> GetByIdAsync(int id)
         {
-            return await context.Set<T>().FindAsync(id);
+            var entity = await context.Set<T>().FindAsync(id);
+            context.Entry(entity).State = EntityState.Detached;
+            return entity;
         }
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await context.Set<T>().ToListAsync();
+            return await context.Set<T>().AsNoTracking().ToListAsync();
         }
         public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
         {
@@ -49,6 +51,8 @@ namespace TechMarket.DAL.Repositories
         }
         public void Update(T entity)
         {
+            //context.Set<T>().Update(entity);
+            //context.Entry(entity).State = EntityState.Detached;
             context.Entry(entity).State = EntityState.Modified;
         }
     }

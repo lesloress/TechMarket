@@ -29,17 +29,50 @@ namespace TechMarket.BLL
                 .AddEntityFrameworkStores<TechMarketIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
+            InjectRepositories(services);
+            InjectServices(services);
+            CreateMapper(services);
+            //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            //services.AddScoped<IProductRepository, ProductRepository>();
+            //services.AddScoped<ICategoryRepository, CategoryRepository>();
+            //services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+            //services.AddScoped<IRepository<Order>, Repository<Order>>();
+
+            //services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            //services.AddScoped<IProductService, ProductService>();
+            //services.AddScoped<ICategoryService, CategoryService>();
+            //services.AddScoped<IShoppingCartService, ShoppingCartService>();
+
+            //var mappingConfig = new MapperConfiguration(mc =>
+            //{
+            //    mc.AddProfile(new MappingProfile());
+            //});
+
+            //IMapper mapper = mappingConfig.CreateMapper();
+            //services.AddSingleton(mapper);
+        }
+
+        private static void InjectRepositories(IServiceCollection services)
+        {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
-
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
 
+        private static void InjectServices(IServiceCollection services)
+        {
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IShoppingCartService, ShoppingCartService>();
+            services.AddScoped<IOrderService, OrderService>();
+        }
 
+        private static void CreateMapper(IServiceCollection services)
+        {
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());

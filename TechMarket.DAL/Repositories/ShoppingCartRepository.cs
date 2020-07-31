@@ -26,6 +26,12 @@ namespace TechMarket.DAL.Repositories
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<bool> IsNotEmpty(string cartId)
+        {
+            return await TechMarketDbContext
+                .ShoppingCartItems.AnyAsync(s => s.ShoppingCartId == cartId);
+        }
+
         private TechMarketDbContext TechMarketDbContext
         {
             get { return context as TechMarketDbContext; }

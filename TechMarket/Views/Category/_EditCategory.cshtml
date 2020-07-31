@@ -1,0 +1,15 @@
+﻿@model TechMarket.BLL.DTO.CategoryDTO
+
+
+    <form class="categoryEditForm">
+        <h4>Edit category</h4>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input id="name" asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </form>
+

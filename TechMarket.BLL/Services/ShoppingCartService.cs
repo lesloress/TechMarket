@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TechMarket.BLL.DTO;
 using TechMarket.BLL.Interfaces;
@@ -53,5 +54,22 @@ namespace TechMarket.BLL.Services
                 await _unitOfWork.CommitAsync();
             }
         }
+
+        public async Task ClearCart(string shoppingCartId)
+        {
+            var items = await _unitOfWork.ShoppingCartRepository
+                .Find(s => s.ShoppingCartId == shoppingCartId);
+            if (items.Count() > 0)
+            {
+                _unitOfWork.ShoppingCartRepository.RemoveRange(items);
+                await _unitOfWork.CommitAsync();
+            }
+        }
+
+        public async Task<bool> IsNotEmpty(string cartId)
+        {
+            return await _unitOfWork.ShoppingCartRepository.IsNotEmpty(cartId);
+        }
+
     }
 }

@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - TechMarket</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
-    <link href="~/jqueryui/themes/base/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/jqueryui/themes/base/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
 </head>
@@ -25,7 +25,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Catalog</a>
                         </li>
                         <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="ProductList">Admin panel</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="OrdersManager">Admin panel</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-action="Logout" asp-controller="Account">Log out</a>
@@ -43,8 +43,7 @@
     </header>
     <div class="container-fluid">
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
-        
+        <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
 
         <div class="row">
             <div class="col-sm-2 border-right">
@@ -53,7 +52,7 @@
             <div role="main" class="col-sm-10">
                 @if (TempData["message"] != null)
                 {
-                    <div class="alert alert-success mt-1">@TempData["message"]</div>
+                    <div id="messageBox" class="alert alert-success mt-1">@TempData["message"]</div>
                 }
                 @RenderBody()
             </div>
@@ -67,6 +66,7 @@
     </footer>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
 
     @RenderSection("Scripts", required: false)
 </body>

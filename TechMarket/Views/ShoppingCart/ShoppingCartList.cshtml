@@ -13,36 +13,40 @@
                 </div>
                 <div class="col-5 col-sm-6 col-md-8">
                     <div class="row">
-                        @*<div class="col-11 justify-content-md-center">
-                            <h3>@item.Name</h3>
-                        </div>
-                        <div class="col-1">
-                            <button class="btn bg-white"><i class="fa fa-times" aria-hidden="true"></i></button>
-                        </div>*@
                         <h3>@item.Name</h3>
                     </div>
                     <div class="row justify-content-start">
                         <div class="col">
-                            <p>@item.Quantity</p>
+                            <p>Quantity: @item.Quantity</p>
                         </div>
                         <div class="col">
-                            <p>@item.FullPrice</p>
+                            <p>Price:@item.FullPrice</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-1">
-                    <form asp-action="DeleteFromCart" asp-controller="ShoppingCart"  asp-antiforgery="true">
-                        <input name="cartItemId" type="hidden" value="@item.Id"/>
+                    <form asp-action="DeleteFromCart" asp-controller="ShoppingCart" asp-antiforgery="true">
+                        <input name="cartItemId" type="hidden" value="@item.Id" />
                         <button type="submit" class="btn bg-white"><i class="fa fa-times" aria-hidden="true"></i></button>
                     </form>
                 </div>
             </div>
         }
-        <div class="row justify-content-end">
-            <div class="col-auto">
+        @if (Model.ShoppingCartItems.Count() > 0)
+        {
+            <div class="d-flex justify-content-end">
                 <p>Total price: @Model.TotalPrice</p>
             </div>
-        </div>
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-primary" asp-action="Checkout" asp-controller="Order">
+                    Continue to checkout
+                </a>
+            </div>
+        } else
+        {
+            <h3>There are no items in cart.</h3>
+        }
+
     </div>
 
 

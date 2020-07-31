@@ -35,6 +35,13 @@ namespace TechMarket.BLL.Services
             return categoryDto;
         }
 
+        public async Task UpdateCategory(CategoryDTO categoryDto)
+        {
+            Category category = _mapper.Map<Category>(categoryDto);
+            _unitOfWork.Categories.Update(category);
+            await _unitOfWork.CommitAsync();
+        }
+
         public async Task DeleteCategory(CategoryDTO categoryDTO)
         {
             Category category = _mapper.Map<Category>(categoryDTO);

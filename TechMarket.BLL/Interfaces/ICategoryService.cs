@@ -11,6 +11,7 @@ namespace TechMarket.BLL.Interfaces
         Task<CategoryDTO> CreateCategory(CategoryDTO categoryDto);
         Task DeleteCategory(CategoryDTO categoryDTO);
         Task<bool> DeleteCategoryById(int id);
+        Task UpdateCategory(CategoryDTO categoryDto);
 
     }
 }

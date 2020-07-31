@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" accept="image/*" onchange="ImagePreview(this);" />
+                <input class="previewImgFile" asp-for="ImageFile" accept="image/*" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
             <img width="250" height="200" id="preview" />
@@ -51,5 +51,5 @@
 </div>
 
 @section Scripts {
-<script src="~/js/admin_panel.js"></script>
+    <script src="~/js/admin_panel.js"></script>
 }

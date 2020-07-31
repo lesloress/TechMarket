@@ -4,13 +4,6 @@
     ViewData["Title"] = "Product";
 }
 
-@*@section ShoppingCart {
-    <div id="shoppingCart">
-        @Html.ActionLink("cart", "ShoppingCartList", "ShoppingCart")
-    </div>
-}*@
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
@@ -36,16 +29,3 @@
         </div>
     </div>
 </div>
-
-@*<script type="text/javascript">
-    $(document).ready(function () {
-        $('#shoppingCart').load('@Url.Action("CartListPartial", "Cart")');
-    });
-
-    async function addProductToCart(id) {
-        $.post('/ShoppingCart/AddToCart', { productId: id });
-        $('#shoppingCart').load('@Url.Action("CartListPartial", "Cart")');
-    }
-                
-            
-</script>*@

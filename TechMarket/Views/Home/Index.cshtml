@@ -3,12 +3,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-@*@section ShoppingCart {
-        <div id="shoppingCart">
-            @Html.ActionLink("cart", "ShoppingCartList", "ShoppingCart")
-        </div>
-    }*@
-
 @section SidePanel {
     <form action="/Product/ProductListPartial" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#catalog" method="post">
         <div class="border-bottom">
@@ -49,9 +43,3 @@
 <div id="catalog">
     @{await Html.RenderPartialAsync("_ProductList", Model.Products); }
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        //$('#catalog').load('@Url.Action("ProductListPartial", "Product")');
-        //$('#shoppingCart').load('@Url.Action("CartListPartial", "Cart")');
-    });
-</script>

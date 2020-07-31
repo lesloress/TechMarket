@@ -14,5 +14,12 @@ namespace TechMarket.Infrastructure
         {
             session.SetString(key, JsonSerializer.Serialize(value));
         }
+
+        public static string GetCartId(this ISession session)
+        {
+            var cartId = session.GetString("CartId");
+            session.SetString("CartId", cartId);
+            return cartId;
+        }
     }
 }

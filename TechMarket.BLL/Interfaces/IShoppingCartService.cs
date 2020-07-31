@@ -9,5 +9,7 @@ namespace TechMarket.BLL.Interfaces
         Task AddToCart(ShoppingCartItemDTO item);
         Task<IEnumerable<ShoppingCartItemDTO>> GetAllShoppingCartItems(string shoppingCartId);
         Task RemoveById(int cartItemId);
+        Task ClearCart(string cartId);
+        Task<bool> IsNotEmpty(string cartId);
     }
 }

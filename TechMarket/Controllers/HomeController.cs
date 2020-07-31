@@ -12,16 +12,14 @@ namespace TechMarket.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
 
-        public HomeController(/*ILogger<HomeController> logger*/ICategoryService categoryService,
+        public HomeController(ICategoryService categoryService,
             IProductService productService)
         {
             _categoryService = categoryService;
             _productService = productService;
-            //_logger = logger;
         }
 
         public async Task<IActionResult> Index()

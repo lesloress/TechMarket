@@ -1,10 +1,14 @@
 ﻿<ul class="list-group">
     <li class="list-group-item">
-        <a asp-action="ProductList" asp-controller="Admin"
+        <a asp-action="OrdersManager" asp-controller="Order"
+            class="text-dark">Orders list</a>
+    </li>
+    <li class="list-group-item">
+        <a asp-action="ProductList" asp-controller="Product"
            id="product_link" class="text-dark">Product list</a>
     </li>
     <li class="list-group-item">
-        <a asp-action="CategoryList" asp-controller="Admin" class="text-dark" onclick="">Category list</a>
+        <a asp-action="CategoryList" asp-controller="Category" class="text-dark" onclick="">Category list</a>
     </li>
 </ul>
 

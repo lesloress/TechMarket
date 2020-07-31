@@ -52,7 +52,6 @@ namespace TechMarket.BLL.Services
             return _mapper.Map<IEnumerable<ProductDTO>>(
                 await _unitOfWork.Products.Find(p => p.Name.Contains(text) || p.Description.Contains(text)));
         }
-
         public async Task DeleteProduct(ProductDTO productDto)
         {
             Product product = _mapper.Map<Product>(productDto);
@@ -71,7 +70,6 @@ namespace TechMarket.BLL.Services
             }
             return false;
         }
-
         public async Task UpdateProduct(ProductDTO productDto)
         {
             Product product = _mapper.Map<Product>(productDto);

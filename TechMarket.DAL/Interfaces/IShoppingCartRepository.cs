@@ -8,5 +8,6 @@ namespace TechMarket.DAL.Interfaces
     {
         Task<IEnumerable<ShoppingCartItem>> GetByCartIdWithProductAsync(string shoppingCartId);
         Task<ShoppingCartItem> GetByCartAndProductIds(string cartId, int productId);
+        Task<bool> IsNotEmpty(string cartId);
     }
 }

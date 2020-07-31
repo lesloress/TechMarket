@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TechMarket.BLL.DTO.CategoryDTO>
+
+@{
+    ViewData["Title"] = "Categories manager";
+}
+
+@section SidePanel {
+    @{await Html.RenderPartialAsync("_AdminSidePanel"); }
+}
+
+@Html.ActionLink("Create category", "CreateCategory", new { }, 
+    new { @class = "createCategoryDialog", data_dialog_title = "Create category" })
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <form asp-action="DeleteCategory" method="post">
+                    <input type="hidden" name="id" value="@item.Id" />
+
+                    <a href="@Url.Action("EditCategory", "Category", new { id = item.Id})" 
+                       class="btn btn-primary btn-sm editCategoryDialog">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                    </a>
+
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+@section Scripts {
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="~/js/admin_panel.js"></script>
+}
+
+
+

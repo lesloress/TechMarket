@@ -35,7 +35,7 @@ namespace TechMarket.Controllers
                     if ((await _signInManager.PasswordSignInAsync(user,
                         loginModel.Password, false, false)).Succeeded)
                     {
-                        return RedirectToAction("ProductList", "Admin");
+                        return RedirectToAction("OrdersManager", "Order");
                     }
                 }
             }

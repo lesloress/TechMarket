@@ -22,10 +22,6 @@ namespace TechMarket.Infrastructure
                     await userManager.CreateAsync(user, adminPassword);
                 }
             }
-
-            //UserManager<IdentityUser> userManager = app.ApplicationServices
-            //.GetRequiredService<UserManager<IdentityUser>>();
-           
         }
     }
 }
