@@ -32,25 +32,6 @@ namespace TechMarket.BLL
             InjectRepositories(services);
             InjectServices(services);
             CreateMapper(services);
-            //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            //services.AddScoped<IProductRepository, ProductRepository>();
-            //services.AddScoped<ICategoryRepository, CategoryRepository>();
-            //services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
-            //services.AddScoped<IRepository<Order>, Repository<Order>>();
-
-            //services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            //services.AddScoped<IProductService, ProductService>();
-            //services.AddScoped<ICategoryService, CategoryService>();
-            //services.AddScoped<IShoppingCartService, ShoppingCartService>();
-
-            //var mappingConfig = new MapperConfiguration(mc =>
-            //{
-            //    mc.AddProfile(new MappingProfile());
-            //});
-
-            //IMapper mapper = mappingConfig.CreateMapper();
-            //services.AddSingleton(mapper);
         }
 
         private static void InjectRepositories(IServiceCollection services)

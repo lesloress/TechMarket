@@ -6,7 +6,9 @@ namespace TechMarket.DAL.EF
 {
     public class TechMarketIdentityDbContext : IdentityDbContext<IdentityUser>
     {
-        public TechMarketIdentityDbContext(DbContextOptions<TechMarketIdentityDbContext> options)
-: base(options) { }
+        public TechMarketIdentityDbContext(
+            DbContextOptions<TechMarketIdentityDbContext> options): base(options) {
+            Database.EnsureCreated();
+        }
     }
 }
